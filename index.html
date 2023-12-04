@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slider Viewer</title>
+  </head>
+  <body>
+    <div id="sliderContainer"></div>
+
+    <script>
+      // Fetch sliders from the API
+      fetch("https://gbapi-834c.onrender.com/slider")
+        .then((response) => response.json())
+        .then((data) => {
+          const sliderContainer = document.getElementById("sliderContainer");
+
+          // Loop through the sliders and create image elements
+          data.data.forEach((slider) => {
+            const sliderDiv = document.createElement("div");
+
+            // Display slider details (name and description)
+            const nameParagraph = document.createElement("p");
+            nameParagraph.textContent = `Name: ${slider.sliderName}`;
+            sliderDiv.appendChild(nameParagraph);
+
+            const descriptionParagraph = document.createElement("p");
+            descriptionParagraph.textContent = `Description: ${
+              slider.sliderDescription || "N/A"
+            }`;
+            sliderDiv.appendChild(descriptionParagraph);
+
+            // Display the image
+            const img = document.createElement("img");
+            img.src = `data:image/jpeg;base64,${slider.sliderImage}`;
+            img.alt = slider.sliderName;
+
+            sliderDiv.appendChild(img);
+
+            // Add some spacing between sliders
+            sliderDiv.style.marginBottom = "20px";
+
+            // Add the sliderDiv to the container
+            sliderContainer.appendChild(sliderDiv);
+          });
+        })
+        .catch((error) => console.error("Error fetching sliders:", error));
+    </script>
+  </body>
+</html>
