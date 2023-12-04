@@ -30,10 +30,14 @@
             }`;
             sliderDiv.appendChild(descriptionParagraph);
 
-            // Display the image
+            // Display the image with styling
             const img = document.createElement("img");
             img.src = `data:image/jpeg;base64,${slider.sliderImage}`;
             img.alt = slider.sliderName;
+
+            // Set maximum width and auto height for responsive scaling
+            img.style.maxWidth = "100%";
+            img.style.height = "auto";
 
             sliderDiv.appendChild(img);
 
